@@ -1,0 +1,131 @@
+<html>
+<head>
+	
+	<title>Swift-3.0</title>
+	<meta name="keywords" content="My Blog, Spider Bitch!" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <!--<link rel="stylesheet" href="/css/main.css">-->
+	<link href="/css/main.css?v=2" rel="stylesheet" type="text/css" />
+    <!--<link rel="stylesheet" href="/css/style.css">-->
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2"/>
+    
+
+</head>
+
+<body>
+
+<h3 id="1-去除无意义的单词"><a href="#1-去除无意义的单词" class="headerlink" title="1.去除无意义的单词"></a>1.去除无意义的单词</h3><p>这个是swift3.0里的一个比较大的改动，这就意味着Siwft里的一些自解释的词语现在被移除啦。</p>
+<p>Swift 2.2</p>
+<pre><code>let blue = UIColor.blueColor()
+let min = numbers.minElement()
+attributedString.appendAttributedString(anotherString)
+names.insert(&quot;Jane&quot;, atIndex: 0)
+UIDevice.currentDevice()
+</code></pre><p>你能你很明显的看到一些多余的单词，比如当你看到是<code>UIColor</code>时,当然后边的Blue就是一个颜色，所以BlueColor就是多余的啦</p>
+<p>Swift 3.0</p>
+<pre><code>let blue = UIColor.blue
+let min = numbers.min()
+attributedString.append(anotherString)
+names.insert(&quot;Jane&quot;, at: 0)
+UIDevice.current
+</code></pre><p>可以看到这样使方法名变得更短啦。这个变化在String上尤为明显，第一行是Swift2.2的代码，第二行是Swift3.0的代码</p>
+<pre><code>&quot;  Hello  &quot;.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet())
+&quot;  Hello  &quot;.trimmingCharacters(in: .whitespacesAndNewlines)
+
+&quot;Taylor&quot;.containsString(&quot;ayl&quot;)
+&quot;Taylor&quot;.contains(&quot;ayl&quot;)
+
+&quot;1,2,3,4,5&quot;.componentsSeparatedByString(&quot;,&quot;)
+&quot;1,2,3,4,5&quot;.components(separatedBy: &quot;,&quot;)
+
+myPath.stringByAppendingPathComponent(&quot;file.txt&quot;)
+myPath.appendingPathComponent(&quot;file.txt&quot;)
+
+&quot;Hello, world&quot;.stringByReplacingOccurrencesOfString(&quot;Hello&quot;, withString: &quot;Goodbye&quot;)
+&quot;Hello, world&quot;.replacingOccurrences(of: &quot;Hello&quot;, with: &quot;Goodbye&quot;)
+
+&quot;Hello, world&quot;.substringFromIndex(7)
+&quot;Hello, world&quot;.substring(from: 7)
+
+&quot;Hello, world&quot;.capitalizedString
+&quot;Hello, world&quot;.capitalized
+</code></pre><p>###2.所有的函数，在调用的时候都要写全部的参数名，除非有其他的需要<br>在Swift2.X上还有更早的版本，函数的第一个参数名在调用的时候是不写的，所以一般来说函数的第一个参数就写在函数名里。比如：</p>
+<pre><code>names.indexOf(&quot;Taylor&quot;)
+&quot;Taylor&quot;.writeToFile(&quot;filename&quot;, atomically: true, encoding: NSUTF8StringEncoding)
+SKAction.rotateByAngle(CGFloat(M_PI_2), duration: 10)
+UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+override func numberOfSectionsInTableView(tableView: UITableView) -&gt; Int
+func viewForZoomingInScrollView(scrollView: UIScrollView) -&gt; UIView?
+NSTimer.scheduledTimerWithTimeInterval(0.35, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+</code></pre><p>Swfit3中所有参数的行参都是必须的除非你特别指定。这就意味着函数名不用考虑参数名了。实际上这就意味着函数名的最后一部分移到了参数名的第一位。下面第一行代码是Swift2.2第二行是Swift3.0</p>
+<pre><code>names.indexOf(&quot;Taylor&quot;)
+names.index(of: &quot;Taylor&quot;)
+
+&quot;Taylor&quot;.writeToFile(&quot;filename&quot;, atomically: true, encoding: NSUTF8StringEncoding)
+&quot;Taylor&quot;.write(toFile: &quot;somefile&quot;, atomically: true, encoding: String.Encoding.utf8)
+
+SKAction.rotateByAngle(CGFloat(M_PI_2), duration: 10)
+SKAction.rotate(byAngle: CGFloat(M_PI_2), duration: 10)
+
+UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
+
+override func numberOfSectionsInTableView(tableView: UITableView) -&gt; Int
+override func numberOfSections(in tableView: UITableView) -&gt; Int
+
+func viewForZoomingInScrollView(scrollView: UIScrollView) -&gt; UIView?
+func viewForZooming(in scrollView: UIScrollView) -&gt; UIView?
+
+NSTimer.scheduledTimerWithTimeInterval(0.35, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+</code></pre><p>在上边最后一个函数调用里，注意<code>NSTimer</code>变成了<code>Time</code>,其他的几个基本的类型也都去掉了<code>NS</code>前缀。所以你以后就会用到<code>UserDefaults</code>,<code>FileManager</code>,<code>Data</code>,<code>URL</code>,<code>URLRequest</code>,<code>UUID</code>,<code>NotificationCenter</code></p>
+<p>但是，还有一些东西需要注意，比如UIKit里的方法，按照以前的习惯，还是不用第一个参数的名字</p>
+<pre><code>override func viewWillAppear(animated: Bool)
+override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int
+override func didMoveToView(view: SKView)
+override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?)
+func textFieldShouldReturn(textField: UITextField) -&gt; Bool
+</code></pre><p>这个时候，需要在第一个参数前面加一个下划线，表示不需要写第一个参数名</p>
+<pre><code>override func viewWillAppear(_ animated: Bool)
+override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int
+override func didMoveToView(_ view: SKView)
+override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
+func textFieldShouldReturn(_ textField: UITextField) -&gt; Bool
+</code></pre>
+
+<!--<a href="http://yoursite.com/2016/09/22/Swift-3-0/#disqus_thread" class="article-comment-link">Comments</a>-->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'undefined'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=undefined&web_id=undefined" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
