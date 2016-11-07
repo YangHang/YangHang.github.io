@@ -1,0 +1,70 @@
+<html>
+<head>
+	
+	<title>工作中常用到的git命令</title>
+	<meta name="keywords" content="My Blog, Spider Bitch!" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <!--<link rel="stylesheet" href="/css/main.css">-->
+	<link href="/css/main.css?v=2" rel="stylesheet" type="text/css" />
+    <!--<link rel="stylesheet" href="/css/style.css">-->
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2"/>
+    
+
+</head>
+
+<body>
+
+<p>##rebase<br>一般合并的时候都习惯用<code>merge</code>,在merge的时候会产生一个新的提交，所以说merge是安全的操作,现有的分支不会被更改，但是merge会导致之间出现分叉<br>有的人不喜欢git分支特别乱，所以有的人会选择另一个操作<code>rebase</code>。<br>rebase顾名思义就是重新定义起点，它的原理是回到两个分支最近的共同祖先，根据当前分支（也就是要进行rebase）后续的历次提交对象，生成一系列文件补丁，然后以基底分支（也就是主干分支 master）最后一个提交对象为新的出发点，逐个应用之前准备好的补丁文件，最后会生成一个新的合并提交对象，从而改写当前分支的提交历史，使它成为 master 分支的直接下游。<br>rebase的最大的好处就是他的提交历史非常整洁，他不像merge那样引入不必要的合并提交。</p>
+<p>##stash<br>有的时候你需要切换到别的分支去工作，但是你不想提交只进行到一半的工作，这个时候可以用</p>
+<pre><code>git stash
+</code></pre><p>保存当前的工作进度。会分别对暂存区和工作区的状态进行保存</p>
+<pre><code>git stash save &quot;message...&quot;
+</code></pre><p>这条命令实际上是第一条 git stash 命令的完整版</p>
+<pre><code>git stash list
+</code></pre><p>显示进度列表。此命令显然暗示了git stash 可以多次保存工作进度，并用在恢复时候进行选择</p>
+<pre><code>git stash pop [--index] [&lt;stash&gt;]
+</code></pre><p>如果不使用任何参数，会恢复最新保存的工作进度，并将恢复的工作进度从存储的工作进度列表中清除。</p>
+<p>如果提供参数（来自 git stash list 显示的列表），则从该 <stash> 中恢复。恢复完毕也将从进度列表中删除 <stash>。</stash></stash></p>
+<p>选项–index 除了恢复工作区的文件外，还尝试恢复暂存区。</p>
+<pre><code>git stash apply [--index] [&lt;stash&gt;]
+</code></pre><p>除了不删除恢复的进度之外，其余和 git stash pop 命令一样</p>
+<pre><code>git stash clear
+</code></pre><p>删除所有存储的进度</p>
+
+
+<!--<a href="http://yoursite.com/2016/11/07/工作中常用到的git命令/#disqus_thread" class="article-comment-link">Comments</a>-->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'undefined'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=undefined&web_id=undefined" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
